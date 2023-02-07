@@ -1,0 +1,8 @@
+
+{
+    "TESSERACT_WORKER_PATH": "../../../../node_modules/tesseract.js/src/worker-script/node/index.js",
+    "TESSERACT_LANG_PATH": "../../../tesseract/lang/best",
+    "TESSERACT_CORE_PATH": "../../../../node_modules/tesseract.js-core/tesseract-core.js",
+    "TESSERACT_IS_GZIPPED": "true",
+    "TESSERACT_OCR_ENGINE_MODE": "LSTM_ONLY"
+}

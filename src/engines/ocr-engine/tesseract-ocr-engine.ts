@@ -1,0 +1,37 @@
+import { inject, injectable } from "inversify";
+import { createWorker } from "tesseract.js";
+import { IOcrEngine } from "./ocr-engine-interface";
+import { ITesseractConfiguration } from "@models/configuration/tesseract-configuration/tesseract-configuration-interface";
+import { ITesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesseract-block-mapper-interace";
+import { TextBlock } from "@models/ocr/text-block";
+import type { RecognizeResult } from "tesseract.js";
+
+
+/**
+ * Coordinator for OCR functionality using Tesseract.js
+ * API docs - https://github.com/naptha/tesseract.js/blob/master/docs/api.md#api
+ */
+@injectable()
+export class TesseractOcrEngine implements IOcrEngine {
+
+    constructor (
+        @inject(ITesseractConfiguration) private readonly _tesseractConfiguration: ITesseractConfiguration,
+        @inject(ITesseractBlockMapper) private readonly _tessractBlockMapper: ITesseractBlockMapper,
+    ) { }
+
+    public async recognize(base64Image: string, languageCode = "eng"): Promise<TextBlock[]> {
+        const worker = await createWorker({
+            workerPath: this._tesseractConfiguration.workerPath,
+            langPath: this._tesseractConfiguration.langPath,
+            corePath: this._tesseractConfiguration.corePath,
+            gzip: this._tesseractConfiguration.isGzipped,
+            errorHandler: e => console.log(e)
+        });
+
+        await worker.loadLanguage(languageCode);
+        await worker.initialize(languageCode, this._tesseractConfiguration.ocrEngineMode);
+
+        const result = await worker.recognize(base64Image);
+        return this._tessractBlockMapper.map(result, base64Image);
+    }
+}
