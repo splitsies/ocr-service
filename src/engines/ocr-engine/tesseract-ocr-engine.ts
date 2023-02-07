@@ -20,11 +20,21 @@ export class TesseractOcrEngine implements IOcrEngine {
     ) { }
 
     public async recognize(base64Image: string, languageCode = "eng"): Promise<TextBlock[]> {
-        const worker = await createWorker({
+        const config = {
             workerPath: this._tesseractConfiguration.workerPath,
             langPath: this._tesseractConfiguration.langPath,
             corePath: this._tesseractConfiguration.corePath,
             gzip: this._tesseractConfiguration.isGzipped,
+        };
+
+        console.log({ config });
+        
+        const worker = await createWorker({
+            // workerPath: this._tesseractConfiguration.workerPath,
+            // langPath: this._tesseractConfiguration.langPath,
+            // corePath: this._tesseractConfiguration.corePath,
+            // gzip: this._tesseractConfiguration.isGzipped,
+            ...config,
             errorHandler: e => console.log(e)
         });
 
