@@ -1,13 +1,14 @@
 import type { AWS } from '@serverless/typescript';
 
-// import tesseractConfig from "./src/config/tesseract.config.json";
+import tesseractConfig from "./src/config/tesseract.config.json";
 
 import hello from '@functions/hello';
 import process from "@functions/images/process";
 
 const serverlessConfiguration: AWS = {
     org: 'kevchen',
-    service: 'ocr-service',
+    app: 'split-service',
+    service: 'split-ocr-service',
     frameworkVersion: '3',
     plugins: ['serverless-esbuild', 'serverless-offline'],
     provider: {
@@ -21,13 +22,11 @@ const serverlessConfiguration: AWS = {
         environment: {
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
             NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
-            // TEXTRACT_USER_ACCESS: '${param:TEXTRACT_ACCESS_ID}',
-            // TEXTRACT_USER_SECRET: '${param:TEXTRACT_SECRET}',
-
-            // // TODO: Make these configurable from serverless dashboard
-            // // CDN URLs are not allowed in creating a tesseract worker, the files have been locally downloaded via npm
-            // // These paths are relative to the respective handler.js file in the built output
-            // ...tesseractConfig,
+            // CDN URLs are not allowed in creating a tesseract worker, the files have been locally downloaded via npm
+            // These paths are relative to the respective handler.js file in the built output
+            // Note: The actual values must be defined on Serverless Dashboard. Your local serverless cli has to be configured
+            // to access the org/app/service, and the service must be deployed 
+            ...tesseractConfig,
         },
     },
     // import the function via paths

@@ -26,8 +26,6 @@ export class TesseractOcrEngine implements IOcrEngine {
             corePath: this._tesseractConfiguration.corePath,
             gzip: this._tesseractConfiguration.isGzipped,
         };
-
-        console.log({ config });
         
         const worker = await createWorker({
             // workerPath: this._tesseractConfiguration.workerPath,
