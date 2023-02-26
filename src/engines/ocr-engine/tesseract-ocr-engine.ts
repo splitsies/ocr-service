@@ -28,10 +28,6 @@ export class TesseractOcrEngine implements IOcrEngine {
         };
         
         const worker = await createWorker({
-            // workerPath: this._tesseractConfiguration.workerPath,
-            // langPath: this._tesseractConfiguration.langPath,
-            // corePath: this._tesseractConfiguration.corePath,
-            // gzip: this._tesseractConfiguration.isGzipped,
             ...config,
             errorHandler: e => console.log(e)
         });
