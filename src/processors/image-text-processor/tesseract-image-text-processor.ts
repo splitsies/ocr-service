@@ -1,25 +1,19 @@
 import { inject, injectable } from "inversify";
 import { createWorker } from "tesseract.js";
-import { IOcrEngine } from "./ocr-engine-interface";
 import { ITesseractConfiguration } from "@models/configuration/tesseract-configuration/tesseract-configuration-interface";
 import { ITesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesseract-block-mapper-interace";
 import { TextBlock } from "@models/ocr/text-block";
-import type { RecognizeResult } from "tesseract.js";
+import { IImageTextProcessor } from "./image-text-processor-interface";
 
-
-/**
- * Coordinator for OCR functionality using Tesseract.js
- * API docs - https://github.com/naptha/tesseract.js/blob/master/docs/api.md#api
- */
 @injectable()
-export class TesseractOcrEngine implements IOcrEngine {
-
+export class TesseractImageTextProcessor implements IImageTextProcessor {
+    
     constructor (
         @inject(ITesseractConfiguration) private readonly _tesseractConfiguration: ITesseractConfiguration,
         @inject(ITesseractBlockMapper) private readonly _tessractBlockMapper: ITesseractBlockMapper,
     ) { }
 
-    public async recognize(base64Image: string, languageCode = "eng"): Promise<TextBlock[]> {
+    public async process(base64Image: string, languageCode = "eng"): Promise<TextBlock[]> {
         const config = {
             workerPath: this._tesseractConfiguration.workerPath,
             langPath: this._tesseractConfiguration.langPath,
