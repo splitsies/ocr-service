@@ -15,7 +15,7 @@ export class TesseractBlockMapper implements ITesseractBlockMapper {
         return tesseractResult.data.words.map(word => {
             const boundingBox = new BoundingBox(
                 word.bbox.y0 / size.height,
-                word.bbox.x0 / size.widt,
+                word.bbox.x0 / size.width,
                 word.bbox.x1 - word.bbox.x0,
                 word.bbox.y1 - word.bbox.y0
             );

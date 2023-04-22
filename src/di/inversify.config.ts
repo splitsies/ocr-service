@@ -10,6 +10,8 @@ import { ITesseractConfiguration } from "../models/configuration/tesseract-confi
 import { TesseractConfiguration } from "../models/configuration/tesseract-configuration/tesseract-configuration";
 import { ITesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesseract-block-mapper-interace";
 import { TesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesseract-block-mapper";
+import { ImageFormatMapper } from "src/mappers/image/image-format-mapper";
+import { IImageFormatMapper } from "src/mappers/image/image-format-mapper-interface";
 
 const container = new Container();
 
@@ -19,5 +21,7 @@ container.bind<IOcrEngine>(IOcrEngine).to(OcrEngine).inSingletonScope();
 
 container.bind<ITesseractConfiguration>(ITesseractConfiguration).to(TesseractConfiguration).inSingletonScope();
 container.bind<ITesseractBlockMapper>(ITesseractBlockMapper).to(TesseractBlockMapper).inSingletonScope();
+
+container.bind<IImageFormatMapper>(IImageFormatMapper).to(ImageFormatMapper).inSingletonScope();
 
 export { container };
