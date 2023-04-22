@@ -2,8 +2,8 @@ import { inject, injectable } from "inversify";
 import { createWorker } from "tesseract.js";
 import { ITesseractConfiguration } from "@models/configuration/tesseract-configuration/tesseract-configuration-interface";
 import { ITesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesseract-block-mapper-interace";
-import { TextBlock } from "@models/ocr/text-block";
 import { IImageTextProcessor } from "./image-text-processor-interface";
+import { ITextBlock } from "@splitsies/shared-models";
 
 @injectable()
 export class TesseractImageTextProcessor implements IImageTextProcessor {
@@ -13,7 +13,7 @@ export class TesseractImageTextProcessor implements IImageTextProcessor {
         @inject(ITesseractBlockMapper) private readonly _tessractBlockMapper: ITesseractBlockMapper,
     ) { }
 
-    public async process(base64Image: string, languageCode = "eng"): Promise<TextBlock[]> {
+    public async process(base64Image: string, languageCode = "eng"): Promise<ITextBlock[]> {
         const config = {
             workerPath: this._tesseractConfiguration.workerPath,
             langPath: this._tesseractConfiguration.langPath,

@@ -5,7 +5,7 @@ import { container } from '../../../di/inversify.config';
 import { IImageService } from '../../../services/image-service/image-service-interface';
 import schema from './schema';
 import { TextBlock } from '@models/ocr/text-block';
-import { HttpStatusCode } from '@models/enums/http-status-code';
+import { HttpStatusCode } from '@splitsies/shared-models';
 
 const imageService = container.get<IImageService>(IImageService);
 

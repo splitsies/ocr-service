@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "@models/enums/http-status-code";
+import { HttpStatusCode } from "@splitsies/shared-models";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult, Handler } from "aws-lambda"
 import type { FromSchema } from "json-schema-to-ts";
 
