@@ -1,4 +1,4 @@
-import { TextBlock } from "@models/ocr/text-block";
+import { ITextBlock } from "@splitsies/shared-models";
 
 /**
  * IImageProcessor
@@ -7,7 +7,7 @@ import { TextBlock } from "@models/ocr/text-block";
  * Specifically, processing the text out of an image
  */
 export interface IImageTextProcessor {
-    process(base64Image: string, languageCode?: string): Promise<TextBlock[]>;
+    process(base64Image: string, languageCode?: string): Promise<ITextBlock[]>;
 }
 
 export const IImageTextProcessor: symbol = Symbol.for("IImageTextProcessor");
