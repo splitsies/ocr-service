@@ -1,4 +1,3 @@
-
 import { ITextBlock } from "@splitsies/shared-models";
 import type { RecognizeResult } from "tesseract.js";
 

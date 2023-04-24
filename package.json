@@ -5,14 +5,18 @@
   "main": "serverless.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "sls offline start"
+    "serve": "sls offline start",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json"
   },
   "engines": {
     "node": ">=14.15.0"
   },
+  "prettier": "@splitsies/formatting",
   "dependencies": {
     "@middy/core": "^3.4.0",
     "@middy/http-json-body-parser": "^3.4.0",
+    "@splitsies/formatting": "^1.0.0",
     "@splitsies/shared-models": "^0.0.1",
     "@splitsies/utils": "0.0.3",
     "esbuild-darwin-arm64": "^0.15.18",
@@ -29,6 +33,7 @@
     "@types/node": "^14.14.25",
     "esbuild": "^0.14.11",
     "json-schema-to-ts": "^1.5.0",
+    "prettier": "^2.8.8",
     "serverless-esbuild": "^1.23.3",
     "serverless-offline": "^12.0.4",
     "ts-node": "^10.4.0",

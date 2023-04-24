@@ -4,7 +4,6 @@ import { injectable } from "inversify";
 import { OEM } from "tesseract.js";
 import { ITesseractConfiguration } from "./tesseract-configuration-interface";
 
-
 /**
  * Type safe configuration model for Tesseract. Values are defined in tesseract.config.json and inserted as
  * environment variables in serverless.ts

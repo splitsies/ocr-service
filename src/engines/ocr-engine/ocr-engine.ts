@@ -9,11 +9,9 @@ import { IImageTextProcessor } from "@processors/image-text-processor/image-text
  */
 @injectable()
 export class OcrEngine implements IOcrEngine {
-
-    constructor (@inject(IImageTextProcessor) private readonly _imageProcessor: IImageTextProcessor) { }
+    constructor(@inject(IImageTextProcessor) private readonly _imageProcessor: IImageTextProcessor) {}
 
     public async recognize(base64Image: string, languageCode = "eng"): Promise<ITextBlock[]> {
         return this._imageProcessor.process(base64Image, languageCode);
     }
-    
 }

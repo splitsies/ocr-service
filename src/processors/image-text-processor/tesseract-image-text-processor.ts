@@ -9,13 +9,12 @@ import { ILogger } from "@splitsies/utils";
 
 @injectable()
 export class TesseractImageTextProcessor implements IImageTextProcessor {
-    
     constructor(
         @inject(ILogger) private readonly _logger: ILogger,
         @inject(ITesseractConfiguration) private readonly _tesseractConfiguration: ITesseractConfiguration,
         @inject(ITesseractBlockMapper) private readonly _tessractBlockMapper: ITesseractBlockMapper,
-        @inject(IImageFormatMapper) private readonly _imageFormatMapper: IImageFormatMapper
-    ) { }
+        @inject(IImageFormatMapper) private readonly _imageFormatMapper: IImageFormatMapper,
+    ) {}
 
     public async process(base64Image: string, languageCode = "eng"): Promise<ITextBlock[]> {
         const config = {
@@ -27,7 +26,7 @@ export class TesseractImageTextProcessor implements IImageTextProcessor {
 
         const worker = await createWorker({
             ...config,
-            errorHandler: e => this._logger.error(e)
+            errorHandler: (e) => this._logger.error(e),
         });
 
         await worker.loadLanguage(languageCode);
@@ -38,10 +37,9 @@ export class TesseractImageTextProcessor implements IImageTextProcessor {
         try {
             const result = await worker.recognize(imageBytes);
             return this._tessractBlockMapper.map(result, base64Image);
-        } catch (e) { 
+        } catch (e) {
             this._logger.error(e.code);
             return [];
         }
-
     }
 }
