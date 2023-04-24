@@ -16,7 +16,6 @@ const process: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
     try {
         result = await imageService.processImage(event.body.image);
     } catch (ex) {
-        console.error(Object.keys(ex));
         statusCode = HttpStatusCode.BAD_REQUEST;
     }
 

@@ -5,11 +5,13 @@ import { ITesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesser
 import { IImageTextProcessor } from "./image-text-processor-interface";
 import { ITextBlock } from "@splitsies/shared-models";
 import { IImageFormatMapper } from "src/mappers/image/image-format-mapper-interface";
+import { ILogger } from "@splitsies/utils";
 
 @injectable()
 export class TesseractImageTextProcessor implements IImageTextProcessor {
     
-    constructor (
+    constructor(
+        @inject(ILogger) private readonly _logger: ILogger,
         @inject(ITesseractConfiguration) private readonly _tesseractConfiguration: ITesseractConfiguration,
         @inject(ITesseractBlockMapper) private readonly _tessractBlockMapper: ITesseractBlockMapper,
         @inject(IImageFormatMapper) private readonly _imageFormatMapper: IImageFormatMapper
@@ -25,7 +27,7 @@ export class TesseractImageTextProcessor implements IImageTextProcessor {
 
         const worker = await createWorker({
             ...config,
-            errorHandler: e => console.error(e)
+            errorHandler: e => this._logger.error(e)
         });
 
         await worker.loadLanguage(languageCode);
@@ -37,8 +39,7 @@ export class TesseractImageTextProcessor implements IImageTextProcessor {
             const result = await worker.recognize(imageBytes);
             return this._tessractBlockMapper.map(result, base64Image);
         } catch (e) { 
-            console.error(Object.keys(e));
-            console.error(e.code);
+            this._logger.error(e.code);
             return [];
         }
 

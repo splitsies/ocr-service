@@ -12,8 +12,11 @@ import { ITesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesser
 import { TesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesseract-block-mapper";
 import { ImageFormatMapper } from "src/mappers/image/image-format-mapper";
 import { IImageFormatMapper } from "src/mappers/image/image-format-mapper-interface";
+import { ILogger, Logger } from "@splitsies/utils";
 
 const container = new Container();
+
+container.bind<ILogger>(ILogger).to(Logger).inSingletonScope();
 
 container.bind<IImageTextProcessor>(IImageTextProcessor).to(TesseractImageTextProcessor).inSingletonScope();
 container.bind<IImageService>(IImageService).to(ImageService).inSingletonScope();
