@@ -6,9 +6,9 @@ import hello from '@functions/hello';
 import process from "@functions/images/process";
 
 const serverlessConfiguration: AWS = {
-    org: 'kevchen',
-    app: 'split-service',
-    service: 'split-ocr-service',
+    org: 'splitsies',
+    app: 'ocr-service',
+    service: 'ocr-service',
     frameworkVersion: '3',
     plugins: ['serverless-esbuild', 'serverless-offline'],
     provider: {
