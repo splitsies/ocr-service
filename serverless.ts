@@ -2,7 +2,6 @@ import type { AWS } from '@serverless/typescript';
 
 import tesseractConfig from "./src/config/tesseract.config.json";
 
-import hello from '@functions/hello';
 import process from "@functions/images/process";
 
 const serverlessConfiguration: AWS = {
@@ -30,7 +29,7 @@ const serverlessConfiguration: AWS = {
         },
     },
     // import the function via paths
-    functions: { hello, process },
+    functions: { process },
     package: {
         individually: true,
         include: [
@@ -52,6 +51,11 @@ const serverlessConfiguration: AWS = {
             platform: 'node',
             concurrency: 10,
         },
+        "serverless-offline": {
+            httpPort: 12948,
+            websocketPort: 12949,
+            lambdaPort: 12950
+        }
     },
 };
 
