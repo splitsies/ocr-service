@@ -5,7 +5,7 @@
   "main": "serverless.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "sls offline start",
+    "serve": "./utils/local-startup/startup.sh",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json"
   },
