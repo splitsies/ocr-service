@@ -1,3 +1,3 @@
 sls offline start \
-    --param='TESSERACT_WORKER_PATH=../../../../node_modules/tesseract.js/src/worker-script/node/index.js' \
-    --param='TESSERACT_CORE_PATH=../../../../node_modules/tesseract.js-core/tesseract-core.js'
+    --param='TESSERACT_WORKER_PATH=../../../tesseract/dependencies/js/src/worker-script/node/index.js' \
+    --param='TESSERACT_CORE_PATH=../../../tesseract/dependencies/core/tesseract-core.js'

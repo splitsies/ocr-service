@@ -32,13 +32,7 @@ const serverlessConfiguration: AWS = {
     functions: { process },
     package: {
         individually: true,
-        include: [
-            './src/tesseract/lang/**/*',
-            './node_modules/tesseract.js/node_modules/**',
-            './node_modules/tesseract.js/scripts/**',
-            './node_modules/tesseract.js/src/**',
-            './node_modules/tesseract.js-core/tesseract*'
-        ]
+        include: ['./src/tesseract/**/*']
     },
     custom: {
         esbuild: {
