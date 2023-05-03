@@ -1,7 +1,7 @@
 import { ITextBlock } from "@splitsies/shared-models";
 
-export interface IOcrEngine {
+export interface IOcrManager {
     recognize(base64Image: string, languageCode?: string): Promise<ITextBlock[]>;
 }
 
-export const IOcrEngine: symbol = Symbol.for("IOcrEngine");
+export const IOcrManager: symbol = Symbol.for("IOcrEngine");
