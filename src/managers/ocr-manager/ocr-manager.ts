@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { IOcrEngine } from "./ocr-engine-interface";
+import { IOcrManager } from "./ocr-manager-interface";
 import { ITextBlock } from "@splitsies/shared-models";
 import { IImageTextProcessor } from "@processors/image-text-processor/image-text-processor-interface";
 
@@ -8,7 +8,7 @@ import { IImageTextProcessor } from "@processors/image-text-processor/image-text
  * API docs - https://github.com/naptha/tesseract.js/blob/master/docs/api.md#api
  */
 @injectable()
-export class OcrEngine implements IOcrEngine {
+export class OcrManager implements IOcrManager {
     constructor(@inject(IImageTextProcessor) private readonly _imageProcessor: IImageTextProcessor) {}
 
     public async recognize(base64Image: string, languageCode = "eng"): Promise<ITextBlock[]> {
