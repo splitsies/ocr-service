@@ -1,17 +1,16 @@
 import { inject, injectable } from "inversify";
 import { IOcrManager } from "./ocr-manager-interface";
 import { ITextBlock } from "@splitsies/shared-models";
-import { IImageTextProcessor } from "@processors/image-text-processor/image-text-processor-interface";
+import { IImageTextProcessorProvider } from "src/providers/image-text-processor-provider/image-text-processor-provider-interface";
 
-/**
- * Coordinator for OCR functionality using Tesseract.js
- * API docs - https://github.com/naptha/tesseract.js/blob/master/docs/api.md#api
- */
 @injectable()
 export class OcrManager implements IOcrManager {
-    constructor(@inject(IImageTextProcessor) private readonly _imageProcessor: IImageTextProcessor) {}
+    constructor(
+        @inject(IImageTextProcessorProvider) private readonly _imageProcessorProvider: IImageTextProcessorProvider,
+    ) {}
 
     public async recognize(base64Image: string, languageCode = "eng"): Promise<ITextBlock[]> {
-        return this._imageProcessor.process(base64Image, languageCode);
+        const textProcessor = this._imageProcessorProvider.provide();
+        return textProcessor.process(base64Image, languageCode);
     }
 }

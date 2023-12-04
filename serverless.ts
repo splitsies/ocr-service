@@ -1,6 +1,8 @@
 import type { AWS } from '@serverless/typescript';
 
 import tesseractConfig from "./src/config/tesseract.config.json";
+import ocrConfig from "./src/config/ocr.config.json";
+import textractConfig from "./src/config/textract.config.json";
 
 import process from "@functions/images/process";
 
@@ -26,6 +28,8 @@ const serverlessConfiguration: AWS = {
             // Note: The actual values must be defined on Serverless Dashboard. Your local serverless cli has to be configured
             // to access the org/app/service, and the service must be deployed 
             ...tesseractConfig,
+            ...ocrConfig,
+            ...textractConfig
         },
     },
     // import the function via paths

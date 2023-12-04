@@ -1,0 +1,3 @@
+{
+    "OCR_ENGINE": "${param:OCR_ENGINE}"
+}
