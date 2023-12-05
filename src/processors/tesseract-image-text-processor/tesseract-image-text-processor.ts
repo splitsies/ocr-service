@@ -2,13 +2,13 @@ import { inject, injectable } from "inversify";
 import { createWorker } from "tesseract.js";
 import { ITesseractConfiguration } from "@models/configuration/tesseract-configuration/tesseract-configuration-interface";
 import { ITesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesseract-block-mapper-interace";
-import { IImageTextProcessor } from "./image-text-processor-interface";
 import { ITextBlock } from "@splitsies/shared-models";
 import { IImageFormatMapper } from "src/mappers/image/image-format-mapper-interface";
 import { ILogger } from "@splitsies/utils";
+import { ITesseractImageTextProcessor } from "./tesseract-image-text-processor-interface";
 
 @injectable()
-export class TesseractImageTextProcessor implements IImageTextProcessor {
+export class TesseractImageTextProcessor implements ITesseractImageTextProcessor {
     constructor(
         @inject(ILogger) private readonly _logger: ILogger,
         @inject(ITesseractConfiguration) private readonly _tesseractConfiguration: ITesseractConfiguration,

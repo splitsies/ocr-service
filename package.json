@@ -14,11 +14,12 @@
   },
   "prettier": "@splitsies/formatting",
   "dependencies": {
+    "@aws-sdk/client-textract": "^3.465.0",
     "@middy/core": "^3.4.0",
     "@middy/http-json-body-parser": "^3.4.0",
     "@splitsies/formatting": "^1.0.0",
     "@splitsies/shared-models": "^0.0.12",
-    "@splitsies/utils": "^0.0.17",
+    "@splitsies/utils": "^0.0.21",
     "image-size": "^1.0.2",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",
