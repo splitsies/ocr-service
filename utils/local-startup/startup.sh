@@ -1,1 +1,2 @@
-sls offline start
+sls offline start \
+    --host 0.0.0.0
