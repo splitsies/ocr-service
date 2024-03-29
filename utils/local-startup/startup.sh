@@ -1,2 +1,3 @@
 sls offline start \
-    --host 0.0.0.0
+    --host 0.0.0.0 \
+    --param='ALGORITHMS_API_URI=http://0.0.0.0:5001/dev-pr/'

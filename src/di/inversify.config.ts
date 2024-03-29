@@ -23,6 +23,20 @@ import { TextractBlockMapper } from "src/mappers/tesseract-block-mapper/textract
 import { ITextractImageTextProcessor } from "@processors/textract-image-text-processor/textract-image-text-processor-interface";
 import { TextractImageTextProcessor } from "@processors/textract-image-text-processor/textract-image-text-processor";
 import { ITesseractImageTextProcessor } from "@processors/tesseract-image-text-processor/tesseract-image-text-processor-interface";
+import { IApiConfiguration } from "@models/configuration/api/api-configuration-interface";
+import { ApiConfiguration } from "@models/configuration/api/api-configuration";
+import { IAlgorithmsApiClient } from "src/api/algorithms-api-client/algorithms-api-client-interface";
+import { AlgorithmsApiClient } from "src/api/algorithms-api-client/algorithms-api-client";
+import { FirebaseConfiguration } from "@models/configuration/firebase/firebase-configuration";
+import { IFirebaseConfiguration } from "@models/configuration/firebase/firebase-configuration-interface";
+import { AdminAuthProvider } from "src/providers/admin-auth-provider/admin-auth-provider";
+import { IAdminAuthProvider } from "src/providers/admin-auth-provider/admin-auth-provider-interface";
+import { JwtStrategyProvider } from "src/providers/jwt-strategy-provider/jwt-strategy-provider";
+import { IJwtStrategyProvider } from "src/providers/jwt-strategy-provider/jwt-strategy-provider-interface";
+import { EmulatedJwtAuthStrategy } from "src/strategies/jwt-auth-strategy/emulated-jwt-auth-strategy/emulated-jwt-auth-strategy";
+import { IEmulatedJwtAuthStrategy } from "src/strategies/jwt-auth-strategy/emulated-jwt-auth-strategy/emulated-jwt-auth-strategy-interface";
+import { FirebaseJwtAuthStrategy } from "src/strategies/jwt-auth-strategy/firebase-jwt-auth-strategy/firebase-jwt-auth-strategy";
+import { IFirebaseJwtAuthStrategy } from "src/strategies/jwt-auth-strategy/firebase-jwt-auth-strategy/firebase-jwt-auth-strategy-interface";
 
 const container = new Container();
 
@@ -50,5 +64,14 @@ container
     .bind<ITextractImageTextProcessor>(ITextractImageTextProcessor)
     .to(TextractImageTextProcessor)
     .inSingletonScope();
+
+container.bind<IApiConfiguration>(IApiConfiguration).to(ApiConfiguration).inSingletonScope();
+container.bind<IAlgorithmsApiClient>(IAlgorithmsApiClient).to(AlgorithmsApiClient).inSingletonScope();
+
+container.bind<IFirebaseConfiguration>(IFirebaseConfiguration).to(FirebaseConfiguration).inSingletonScope();
+container.bind<IAdminAuthProvider>(IAdminAuthProvider).to(AdminAuthProvider).inSingletonScope();
+container.bind<IJwtStrategyProvider>(IJwtStrategyProvider).to(JwtStrategyProvider).inSingletonScope();
+container.bind<IEmulatedJwtAuthStrategy>(IEmulatedJwtAuthStrategy).to(EmulatedJwtAuthStrategy).inSingletonScope();
+container.bind<IFirebaseJwtAuthStrategy>(IFirebaseJwtAuthStrategy).to(FirebaseJwtAuthStrategy).inSingletonScope();
 
 export { container };
