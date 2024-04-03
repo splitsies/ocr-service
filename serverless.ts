@@ -3,7 +3,10 @@ import type { AWS } from '@serverless/typescript';
 import tesseractConfig from "./src/config/tesseract.config.json";
 import ocrConfig from "./src/config/ocr.config.json";
 import textractConfig from "./src/config/textract.config.json";
+import apiConfig from "./src/config/api.config.json";
+import firebaseConfig from "./src/config/firebase.config.json";
 
+import verifyToken from '@functions/verify-token';
 import process from "@functions/images/process";
 
 const serverlessConfiguration: AWS = {
@@ -29,11 +32,13 @@ const serverlessConfiguration: AWS = {
             // to access the org/app/service, and the service must be deployed 
             ...tesseractConfig,
             ...ocrConfig,
-            ...textractConfig
+            ...textractConfig,
+            ...apiConfig,
+            ...firebaseConfig
         },
     },
     // import the function via paths
-    functions: { process },
+    functions: { verifyToken, process },
     package: {
         individually: true,
         include: ['./src/tesseract/**/*']

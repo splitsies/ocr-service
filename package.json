@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "./utils/local-startup/startup.sh",
     "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "clear-shared-models": "npm cache clean --force && rm -rf ./node_modules/@splitsies/shared-models && rm -rf ./package-lock.json"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -18,8 +19,9 @@
     "@middy/core": "^3.4.0",
     "@middy/http-json-body-parser": "^3.4.0",
     "@splitsies/formatting": "^1.0.0",
-    "@splitsies/shared-models": "^0.0.12",
+    "@splitsies/shared-models": "^0.0.27",
     "@splitsies/utils": "^0.0.21",
+    "firebase-admin": "^11.11.0",
     "image-size": "^1.0.2",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",

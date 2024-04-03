@@ -1,0 +1,4 @@
+{
+    "ALGORITHMS_API_URI": "${param:ALGORITHMS_API_URI}",
+    "INTERNAL_API_KEY": "${param:INTERNAL_API_KEY}"
+}
