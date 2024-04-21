@@ -15,7 +15,11 @@ export class ImageService implements IImageService {
         const blocks = await this._ocrEngine.recognize(base64EncodedImg);
         const result = new OcrResult(blocks);
 
+        console.log({ result });
+
         const expense = await this._algorithmsApiClient.processImage(result);
+
+        console.log({ expense });
         return expense.data;
     }
 }
