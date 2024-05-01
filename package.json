@@ -1,6 +1,6 @@
 {
   "name": "ocr-service",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
@@ -20,7 +20,7 @@
     "@middy/http-json-body-parser": "^3.4.0",
     "@splitsies/formatting": "^1.0.0",
     "@splitsies/shared-models": "^0.0.27",
-    "@splitsies/utils": "^0.0.21",
+    "@splitsies/utils": "^0.0.30",
     "firebase-admin": "^11.11.0",
     "image-size": "^1.0.2",
     "inversify": "^6.0.1",

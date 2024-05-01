@@ -27,51 +27,25 @@ import { IApiConfiguration } from "@models/configuration/api/api-configuration-i
 import { ApiConfiguration } from "@models/configuration/api/api-configuration";
 import { IAlgorithmsApiClient } from "src/api/algorithms-api-client/algorithms-api-client-interface";
 import { AlgorithmsApiClient } from "src/api/algorithms-api-client/algorithms-api-client";
-import { FirebaseConfiguration } from "@models/configuration/firebase/firebase-configuration";
-import { IFirebaseConfiguration } from "@models/configuration/firebase/firebase-configuration-interface";
-import { AdminAuthProvider } from "src/providers/admin-auth-provider/admin-auth-provider";
-import { IAdminAuthProvider } from "src/providers/admin-auth-provider/admin-auth-provider-interface";
-import { JwtStrategyProvider } from "src/providers/jwt-strategy-provider/jwt-strategy-provider";
-import { IJwtStrategyProvider } from "src/providers/jwt-strategy-provider/jwt-strategy-provider-interface";
-import { EmulatedJwtAuthStrategy } from "src/strategies/jwt-auth-strategy/emulated-jwt-auth-strategy/emulated-jwt-auth-strategy";
-import { IEmulatedJwtAuthStrategy } from "src/strategies/jwt-auth-strategy/emulated-jwt-auth-strategy/emulated-jwt-auth-strategy-interface";
-import { FirebaseJwtAuthStrategy } from "src/strategies/jwt-auth-strategy/firebase-jwt-auth-strategy/firebase-jwt-auth-strategy";
-import { IFirebaseJwtAuthStrategy } from "src/strategies/jwt-auth-strategy/firebase-jwt-auth-strategy/firebase-jwt-auth-strategy-interface";
 
-const container = new Container();
+const container = new Container({ defaultScope: "Singleton" });
 
-container.bind<ILogger>(ILogger).to(Logger).inSingletonScope();
+container.bind<ILogger>(ILogger).to(Logger);
+container.bind<IImageService>(IImageService).to(ImageService);
+container.bind<IOcrManager>(IOcrManager).to(OcrManager);
 
-container.bind<IImageService>(IImageService).to(ImageService).inSingletonScope();
-container.bind<IOcrManager>(IOcrManager).to(OcrManager).inSingletonScope();
+container.bind<ITextractConfiguration>(ITextractConfiguration).to(TextractConfiguration);
+container.bind<IOcrConfiguration>(IOcrConfiguration).to(OcrConfiguration);
+container.bind<ITesseractConfiguration>(ITesseractConfiguration).to(TesseractConfiguration);
+container.bind<ITesseractBlockMapper>(ITesseractBlockMapper).to(TesseractBlockMapper);
+container.bind<ITextractBlockMapper>(ITextractBlockMapper).to(TextractBlockMapper);
+container.bind<IImageFormatMapper>(IImageFormatMapper).to(ImageFormatMapper);
 
-container.bind<ITextractConfiguration>(ITextractConfiguration).to(TextractConfiguration).inSingletonScope();
-container.bind<IOcrConfiguration>(IOcrConfiguration).to(OcrConfiguration).inSingletonScope();
-container.bind<ITesseractConfiguration>(ITesseractConfiguration).to(TesseractConfiguration).inSingletonScope();
-container.bind<ITesseractBlockMapper>(ITesseractBlockMapper).to(TesseractBlockMapper).inSingletonScope();
-container.bind<ITextractBlockMapper>(ITextractBlockMapper).to(TextractBlockMapper).inSingletonScope();
-container.bind<IImageFormatMapper>(IImageFormatMapper).to(ImageFormatMapper).inSingletonScope();
+container.bind<IImageTextProcessorProvider>(IImageTextProcessorProvider).to(ImageTextProcessorProvider);
+container.bind<ITesseractImageTextProcessor>(ITesseractImageTextProcessor).to(TesseractImageTextProcessor);
+container.bind<ITextractImageTextProcessor>(ITextractImageTextProcessor).to(TextractImageTextProcessor);
 
-container
-    .bind<IImageTextProcessorProvider>(IImageTextProcessorProvider)
-    .to(ImageTextProcessorProvider)
-    .inSingletonScope();
-container
-    .bind<ITesseractImageTextProcessor>(ITesseractImageTextProcessor)
-    .to(TesseractImageTextProcessor)
-    .inSingletonScope();
-container
-    .bind<ITextractImageTextProcessor>(ITextractImageTextProcessor)
-    .to(TextractImageTextProcessor)
-    .inSingletonScope();
-
-container.bind<IApiConfiguration>(IApiConfiguration).to(ApiConfiguration).inSingletonScope();
-container.bind<IAlgorithmsApiClient>(IAlgorithmsApiClient).to(AlgorithmsApiClient).inSingletonScope();
-
-container.bind<IFirebaseConfiguration>(IFirebaseConfiguration).to(FirebaseConfiguration).inSingletonScope();
-container.bind<IAdminAuthProvider>(IAdminAuthProvider).to(AdminAuthProvider).inSingletonScope();
-container.bind<IJwtStrategyProvider>(IJwtStrategyProvider).to(JwtStrategyProvider).inSingletonScope();
-container.bind<IEmulatedJwtAuthStrategy>(IEmulatedJwtAuthStrategy).to(EmulatedJwtAuthStrategy).inSingletonScope();
-container.bind<IFirebaseJwtAuthStrategy>(IFirebaseJwtAuthStrategy).to(FirebaseJwtAuthStrategy).inSingletonScope();
+container.bind<IApiConfiguration>(IApiConfiguration).to(ApiConfiguration);
+container.bind<IAlgorithmsApiClient>(IAlgorithmsApiClient).to(AlgorithmsApiClient);
 
 export { container };
