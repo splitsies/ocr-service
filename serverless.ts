@@ -26,6 +26,7 @@ const serverlessConfiguration: AWS = {
         environment: {
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
             NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+            STAGE: "${param:QUEUE_STAGE_NAME}",
             // CDN URLs are not allowed in creating a tesseract worker, the files have been locally downloaded via npm
             // These paths are relative to the respective handler.js file in the built output
             // Note: The actual values must be defined on Serverless Dashboard. Your local serverless cli has to be configured
