@@ -19,6 +19,15 @@ const serverlessConfiguration: AWS = {
         name: 'aws',
         stage: 'dev-pr',
         runtime: 'nodejs18.x',
+        httpApi: {
+            authorizers: {
+                verifyToken: {
+                    identitySource: "$request.header.Authorization",
+                    issuerUrl: "https://securetoken.google.com/splitsies-${sls:stage}",
+                    audience: ["splitsies-${sls:stage}"],
+                },
+            },
+        },
         apiGateway: {
             minimumCompressionSize: 1024,
             shouldStartNameWithService: true,
@@ -52,7 +61,7 @@ const serverlessConfiguration: AWS = {
             sourcemap: true,
             sourcesContent: false,
             keepNames: false,
-            outputFileExtension: ".js",
+            outputFileExtension: ".mjs",
             exclude: ["aws-sdk"],
             target: "node18",
             define: { "require.resolve": undefined },
