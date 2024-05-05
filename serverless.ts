@@ -19,15 +19,6 @@ const serverlessConfiguration: AWS = {
         name: 'aws',
         stage: 'dev-pr',
         runtime: 'nodejs18.x',
-        httpApi: {
-            authorizers: {
-                verifyToken: {
-                    identitySource: "$request.header.Authorization",
-                    issuerUrl: "https://securetoken.google.com/splitsies-${sls:stage}",
-                    audience: ["splitsies-${sls:stage}"],
-                },
-            },
-        },
         apiGateway: {
             minimumCompressionSize: 1024,
             shouldStartNameWithService: true,
@@ -55,22 +46,14 @@ const serverlessConfiguration: AWS = {
     },
     custom: {
         esbuild: {
-            format: "esm",
             bundle: true,
             minify: true,
             sourcemap: true,
-            sourcesContent: false,
-            keepNames: false,
-            outputFileExtension: ".mjs",
-            exclude: ["aws-sdk"],
-            target: "node18",
-            define: { "require.resolve": undefined },
-            platform: "node",
+            exclude: ['aws-sdk'],
+            target: 'node18',
+            define: { 'require.resolve': undefined },
+            platform: 'node',
             concurrency: 10,
-            banner: {
-                // https://github.com/evanw/esbuild/issues/1921
-                js: "import { createRequire } from 'module';const require = createRequire(import.meta.url);",
-            },
         },
         "serverless-offline": {
             httpPort: 12948,
