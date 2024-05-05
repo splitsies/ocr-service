@@ -42,7 +42,7 @@ const serverlessConfiguration: AWS = {
     functions: { verifyToken, process },
     package: {
         individually: true,
-        exclude: ['./src/tesseract/**/*']
+        include: ['./src/tesseract/**/*']
     },
     custom: {
         esbuild: {

@@ -14,7 +14,7 @@
     "resolveJsonModule": true, // import configuration json files
     "esModuleInterop": true, // import configuration json files
   },
-  "include": ["src/**/*.ts", "serverless.ts"],
+  "include": ["src/**/*.ts", "serverless.ts", "serverless-tesseract.ts"],
   "exclude": [
     "node_modules/**/*",
     ".serverless/**/*",
