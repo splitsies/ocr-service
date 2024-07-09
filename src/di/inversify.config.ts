@@ -25,8 +25,7 @@ import { TextractImageTextProcessor } from "@processors/textract-image-text-proc
 import { ITesseractImageTextProcessor } from "@processors/tesseract-image-text-processor/tesseract-image-text-processor-interface";
 import { IApiConfiguration } from "@models/configuration/api/api-configuration-interface";
 import { ApiConfiguration } from "@models/configuration/api/api-configuration";
-import { IAlgorithmsApiClient } from "src/api/algorithms-api-client/algorithms-api-client-interface";
-import { AlgorithmsApiClient } from "src/api/algorithms-api-client/algorithms-api-client";
+import { Initializer } from "@splitsies/algorithms";
 
 const container = new Container({ defaultScope: "Singleton" });
 
@@ -46,6 +45,7 @@ container.bind<ITesseractImageTextProcessor>(ITesseractImageTextProcessor).to(Te
 container.bind<ITextractImageTextProcessor>(ITextractImageTextProcessor).to(TextractImageTextProcessor);
 
 container.bind<IApiConfiguration>(IApiConfiguration).to(ApiConfiguration);
-container.bind<IAlgorithmsApiClient>(IAlgorithmsApiClient).to(AlgorithmsApiClient);
+
+Initializer.initialize(container);
 
 export { container };

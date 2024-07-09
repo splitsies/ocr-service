@@ -20,14 +20,15 @@
     "@middy/http-json-body-parser": "^3.4.0",
     "@splitsies/formatting": "^1.0.0",
     "@splitsies/shared-models": "^0.0.31",
-    "@splitsies/utils": "^0.0.30",
+    "@splitsies/utils": "^0.0.31",
     "firebase-admin": "^11.11.0",
     "image-size": "^1.0.2",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",
     "serverless": "^3.27.0",
     "tesseract.js": "^4.0.2",
-    "tesseract.js-core": "^4.0.2"
+    "tesseract.js-core": "^4.0.2",
+    "@splitsies/algorithms": "^1.0.5"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
