@@ -17,5 +17,5 @@ const map = (result) => result.map((b) => {
 const filePath = process.argv[2];
 const textractResult = require(filePath);
 const dirname = path.dirname(filePath);
-const ocrResult = JSON.stringify({ textBlocks: map(textractResult.Blocks) }, null, 2);
+const ocrResult = JSON.stringify({ textBlocks: map(textractResult.Blocks.filter((b) => b.BlockType === "LINE")) }, null, 2);
 fs.writeFileSync(`${dirname}/ocrResult.json`, ocrResult);
