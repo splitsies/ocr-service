@@ -8,7 +8,8 @@
     "serve": "./utils/local-startup/startup.sh",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
-    "clear-shared-models": "npm cache clean --force && rm -rf ./node_modules/@splitsies/shared-models && rm -rf ./package-lock.json"
+    "clear-shared-models": "npm cache clean --force && rm -rf ./node_modules/@splitsies/shared-models && rm -rf ./package-lock.json",
+    "clear-algorithms": "npm cache clean --force && rm -rf ./node_modules/@splitsies/algorithms && rm -rf ./package-lock.json"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -28,7 +29,7 @@
     "serverless": "^3.27.0",
     "tesseract.js": "^4.0.2",
     "tesseract.js-core": "^4.0.2",
-    "@splitsies/algorithms": "^1.0.5"
+    "@splitsies/algorithms": "^1.0.6"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
