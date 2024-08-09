@@ -29,7 +29,7 @@
     "serverless": "^3.27.0",
     "tesseract.js": "^4.0.2",
     "tesseract.js-core": "^4.0.2",
-    "@splitsies/algorithms": "^1.0.11"
+    "@splitsies/algorithms": "/Users/kevin/source/splitsies/algorithms-service/splitsies-algorithms-1.0.12.tgz"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
