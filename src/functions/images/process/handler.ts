@@ -13,6 +13,8 @@ export const main = middyfy(
     SplitsiesFunctionHandlerFactory.create<typeof schema, IExpenseDto>(
         logger,
         async (event) => {
+            if (event.body.pingEvent) return new DataResponse(HttpStatusCode.OK, null).toJson();
+
             const result = await imageService.processImage(event.body.image);
             return new DataResponse(HttpStatusCode.OK, result).toJson();
         },
