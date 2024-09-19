@@ -1,6 +1,6 @@
 {
   "name": "ocr-service",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
@@ -29,7 +29,7 @@
     "serverless": "^3.27.0",
     "tesseract.js": "^4.0.2",
     "tesseract.js-core": "^4.0.2",
-    "@splitsies/algorithms": "^1.0.11"
+    "@splitsies/algorithms": "^1.0.12"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
