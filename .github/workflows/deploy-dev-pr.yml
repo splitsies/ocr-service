@@ -45,7 +45,7 @@ jobs:
     - run: sam build
     - run: |
         sam deploy --stack-name ocr-service-dev-pr \
-        --region us-west-1
+        --region us-west-1 \
         --no-confirm-changeset \
         --no-fail-on-empty-changeset \
         --parameter-overrides \
