@@ -120,6 +120,7 @@ Resources:
             Path: /process
             Method: post
             RestApiId: !Ref OcrServiceApi
+    Metadata: # Manage esbuild properties
       BuildMethod: esbuild
       SourcesContent: true
       BuildProperties:
