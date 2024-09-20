@@ -58,7 +58,7 @@ jobs:
         echo -n "\"TesseractOcrEngineMode=null\" " >> parameters.cfg
         echo -n "\"TextractAccessKey=${{ secrets.TEXTRACT_ACCESS_KEY_ID }}\" " >> parameters.cfg
         echo -n "\"TextractSecretAccessKey=${{ secrets.TEXTRACT_SECRET_ACCESS_KEY }}\" " >> parameters.cfg
-        echo -n ""\FirebaseApiKey=${{ secrets.FIREBASE_API_KEY_DEV_PR }}\" " >> parameters.cfg
+        echo -n "\"FirebaseApiKey=${{ secrets.FIREBASE_API_KEY_DEV_PR }}\" " >> parameters.cfg
         echo -n "\"FirebaseAuthDomain=${{ secrets.FIREBASE_AUTH_DOMAIN_DEV_PR }}\" " >> parameters.cfg
         echo -n "\"FirebaseProjectId=${{ secrets.FIREBASE_PROJECT_ID_DEV_PR }}\" " >> parameters.cfg
         echo -n "\"FirebaseStorageBucket=${{ secrets.FIREBASE_STORAGE_BUCKET_DEV_PR }}\"" >> parameters.cfg
