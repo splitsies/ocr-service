@@ -13,20 +13,20 @@ export class FirebaseConfiguration implements IFirebaseConfiguration {
     readonly measurementId: string;
 
     constructor() {
-        assert(!!process.env.FIREBASE_API_KEY, "FIREBASE_API_KEY was undefined");
-        assert(!!process.env.FIREBASE_AUTH_DOMAIN, "FIREBASE_AUTH_DOMAIN was undefined");
-        assert(!!process.env.FIREBASE_PROJECT_ID, "FIREBASE_PROJECT_ID was undefined");
-        assert(!!process.env.FIREBASE_STORAGE_BUCKET, "FIREBASE_STORAGE_BUCKET was undefined");
-        assert(!!process.env.FIREBASE_MESSAGING_SENDER_ID, "FIREBASE_MESSAGING_SENDER_ID was undefined");
-        assert(!!process.env.FIREBASE_APP_ID, "FIREBASE_APP_ID was undefined");
-        assert(!!process.env.FIREBASE_MEASUREMENT_ID, "FIREBASE_MEASUREMENT_ID was undefined");
+        this.apiKey = process.env.FIREBASE_API_KEY || process.env.FirebaseApiKey;
+        this.authDomain = process.env.FIREBASE_AUTH_DOMAIN || process.env.FirebaseAuthDomain;
+        this.projectId = process.env.FIREBASE_PROJECT_ID || process.env.FirebaseProjectId;
+        this.storageBucket = process.env.FIREBASE_STORAGE_BUCKET || process.env.FirebaseStorageBucket;
+        this.messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID || process.env.FirebaseMessagingSenderId;
+        this.appId = process.env.FIREBASE_APP_ID || process.env.FirebaseAppId;
+        this.measurementId = process.env.FIREBASE_MEASUREMENT_ID || process.env.FirebaseMeasurementId;
 
-        this.apiKey = process.env.FIREBASE_API_KEY;
-        this.authDomain = process.env.FIREBASE_AUTH_DOMAIN;
-        this.projectId = process.env.FIREBASE_PROJECT_ID;
-        this.storageBucket = process.env.FIREBASE_STORAGE_BUCKET;
-        this.messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID;
-        this.appId = process.env.FIREBASE_APP_ID;
-        this.measurementId = process.env.FIREBASE_MEASUREMENT_ID;
+        assert(!!this.apiKey, "apiKey was undefined");
+        assert(!!this.authDomain, "authDomain was undefined");
+        assert(!!this.projectId, "projectId was undefined");
+        assert(!!this.storageBucket, "storageBucket was undefined");
+        assert(!!this.messagingSenderId, "messagingSenderId was undefined");
+        assert(!!this.appId, "appId was undefined");
+        assert(!!this.measurementId, "measurementId was undefined");
     }
 }

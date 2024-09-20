@@ -2,11 +2,11 @@ import { inject, injectable } from "inversify";
 import { ITextractImageTextProcessor } from "./textract-image-text-processor-interface";
 import { ITextBlock } from "@splitsies/shared-models";
 import { DetectDocumentTextCommand, TextractClient } from "@aws-sdk/client-textract";
-import { ITextractConfiguration } from "@models/configuration/textract-configuration/textract-configuration-interface";
-import { IImageFormatMapper } from "src/mappers/image/image-format-mapper-interface";
-import { ITextractBlockMapper } from "src/mappers/tesseract-block-mapper/textract-block-mapper/textract-block-mapper-interface";
-import { ImageProcessingError } from "@models/errors/image-processing-error";
 import { ILogger } from "@splitsies/utils";
+import { ITextractConfiguration } from "../../models/configuration/textract-configuration/textract-configuration-interface";
+import { IImageFormatMapper } from "../../mappers/image/image-format-mapper-interface";
+import { ITextractBlockMapper } from "../../mappers/tesseract-block-mapper/textract-block-mapper/textract-block-mapper-interface";
+import { ImageProcessingError } from "../../models/errors/image-processing-error";
 
 @injectable()
 export class TextractImageTextProcessor implements ITextractImageTextProcessor {

@@ -9,7 +9,11 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "clear-shared-models": "npm cache clean --force && rm -rf ./node_modules/@splitsies/shared-models && rm -rf ./package-lock.json",
-    "clear-algorithms": "npm cache clean --force && rm -rf ./node_modules/@splitsies/algorithms && rm -rf ./package-lock.json"
+    "clear-algorithms": "npm cache clean --force && rm -rf ./node_modules/@splitsies/algorithms && rm -rf ./package-lock.json",
+    "build-sam": "sam build",
+    "clean-sam": "rm -rf ./.aws-sam",
+    "serve-sam": "sam build && rm -rf ./.aws-sam/build/ProcessImageFunction/tesseract && cp -R ./src/tesseract ./.aws-sam/build/ProcessImageFunction && sam local start-api --host 0.0.0.0 --port 12948 --env-vars ./local-startup/env.json"
+  
   },
   "engines": {
     "node": ">=14.15.0"
@@ -29,7 +33,9 @@
     "serverless": "^3.27.0",
     "tesseract.js": "^4.0.2",
     "tesseract.js-core": "^4.0.2",
-    "@splitsies/algorithms": "^1.0.12"
+    "@splitsies/algorithms": "^1.0.12",
+    "esbuild": "^0.14.14",
+    "esbuild-plugin-copy": "^2.1.1"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
