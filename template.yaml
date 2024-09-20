@@ -152,3 +152,4 @@ Resources:
         - .esbuild
         - .github
         - .serverless
+        - ./src/tesseract
