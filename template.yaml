@@ -104,20 +104,6 @@ Resources:
           TokenAuthorizer:
             FunctionArn: !GetAtt VerifyTokenFunction.Arn
         DefaultAuthorizer: TokenAuthorizer
-      
-  ProcessSchema:
-    Type: AWS::ApiGateway::Model
-    Properties:
-      RestApiId: !Ref OcrServiceApi
-      ContentType: application/json
-      Schema: 
-        type: "object"
-        properties: 
-          pingEvent: 
-            type: "boolean"
-          image: 
-            type: "string" # base64 encoded image
-        required: ["image"]
 
   ProcessImageFunction:
     Type: AWS::Serverless::Function
@@ -134,10 +120,6 @@ Resources:
             Path: /process
             Method: post
             RestApiId: !Ref OcrServiceApi
-            # RequestModels:
-            #   "application/json": 
-            #     Ref: ProcessSchema # Refers to the JSON schema below
-    Metadata: # Manage esbuild properties
       BuildMethod: esbuild
       SourcesContent: true
       BuildProperties:
