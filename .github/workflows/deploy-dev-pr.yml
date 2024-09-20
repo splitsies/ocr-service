@@ -21,20 +21,18 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
 
-    # - name: serverless deploy
-    #   uses: serverless/github-action@v3.1
-    #   with:
-    #     args: deploy --config serverless-tesseract.ts --stage dev-pr \
-    #         --param="FIREBASE_ADMIN_CREDS=${{ secrets.FIREBASE_ADMIN_CREDS_JSON_DEV_PR }}" \
-    #         --param="QUEUE_STAGE_NAME=devpr" \
-    #         --param="TEXTRACT_REGION=us-east-1" \
-    #         --param="OCR_ENGINE=textract"
-    #   env:
-    #     SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
-    #     AWS_ACCESS_KEY_ID: ${{ secrets.SPLITSIES_DEPLOY_ACCESS_KEY_ID }}
-    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.SPLITSIES_DEPLOY_SECRET_KEY }}
-
-    
+    - name: Deploy to us-east-1 (Serverless Deploy)
+      uses: serverless/github-action@v3.1
+      with:
+        args: deploy --config serverless-tesseract.ts --stage dev-pr \
+            --param="FIREBASE_ADMIN_CREDS=${{ secrets.FIREBASE_ADMIN_CREDS_JSON_DEV_PR }}" \
+            --param="QUEUE_STAGE_NAME=devpr" \
+            --param="TEXTRACT_REGION=us-east-1" \
+            --param="OCR_ENGINE=textract"
+      env:
+        SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.SPLITSIES_DEPLOY_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.SPLITSIES_DEPLOY_SECRET_KEY }}
 
     - uses: actions/setup-python@v3
     - uses: aws-actions/setup-sam@v2
@@ -43,9 +41,7 @@ jobs:
         aws-access-key-id: ${{ secrets.SPLITSIES_DEPLOY_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.SPLITSIES_DEPLOY_SECRET_KEY }}
         aws-region: us-west-1
-    - run: sam build
-
-    
+    - run: sam build   
     
     - name: Create Common Parameter Overrides
       run: | 
@@ -68,35 +64,11 @@ jobs:
         echo -n "\"FirebaseAdminCreds=${{ secrets.FIREBASE_ADMIN_CREDS_DEV_PR }}\" " >> parameters.cfg
       # Note the trailing space on each parameter.
         
-    - run: |
+    - name: Deploy to us-west-1 (SAM Deploy)
+      run: |
         PARAMETERS=$(cat parameters.cfg)
         sam deploy --stack-name ocr-service-dev-pr \
         --region us-west-1 \
         --no-confirm-changeset \
         --no-fail-on-empty-changeset \
         --parameter-overrides $PARAMETERS "TextractRegion=us-west-1"
-        
-        
-        
-        
-        
-        
-# \
-#   "FirebaseApiKey=${{ secrets.FIREBASE_API_KEY_DEV_PR }}" \
-#   "FirebaseAuthDomain=${{ secrets.FIREBASE_AUTH_DOMAIN_DEV_PR }}" \
-#   "FirebaseProjectId=${{ secrets.FIREBASE_PROJECT_ID_DEV_PR }}" \
-#   "FirebaseStorageBucket=${{ secrets.FIREBASE_STORAGE_BUCKET_DEV_PR }}" \
-#   "FirebaseMessagingSenderId=${{ secrets.FIREBASE_MESSAGING_SENDER_ID_DEV_PR }}" \
-#   "FirebaseAppId=${{ secrets.FIREBASE_APP_ID_DEV_PR }}" \
-#   "FirebaseMeasurementId=${{ secrets.FIREBASE_MEASUREMENT_ID_DEV_PR }}" \
-#   "FirebaseAdminCreds=${{ secrets.FIREBASE_ADMIN_CREDS_DEV_PR }}" \
-#   "Stage=devpr" \
-#   "OcrEngine=textract" \
-#   "TesseractWorkerPath=null" \
-#   "TesseractLangPath=null" \
-#   "TesseractCorePath=null" \
-#   "TesseractIsGzipped=null" \
-#   "TesseractOcrEngineMode=null" \
-#   "TextractAccessKey=${{ secrets.TEXTRACT_ACCESS_KEY_ID }}" \
-#   "TextractSecretAccessKey=${{ secrets.TEXTRACT_SECRET_ACCESS_KEY }}" \
-#   "TextractRegion=us-west-1"
