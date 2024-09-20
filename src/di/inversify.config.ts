@@ -1,4 +1,4 @@
-import { Container } from "inversify";
+import { Container, injectable } from "inversify";
 import "reflect-metadata";
 import { TesseractImageTextProcessor } from "@processors/tesseract-image-text-processor/tesseract-image-text-processor";
 import { IImageService } from "src/services/image-service/image-service-interface";
@@ -45,6 +45,26 @@ container.bind<ITesseractImageTextProcessor>(ITesseractImageTextProcessor).to(Te
 container.bind<ITextractImageTextProcessor>(ITextractImageTextProcessor).to(TextractImageTextProcessor);
 
 container.bind<IApiConfiguration>(IApiConfiguration).to(ApiConfiguration);
+
+export interface ITester {
+    readonly timeSinceStart: number;
+}
+export const ITester = Symbol.for("ITester");
+
+@injectable()
+export class Tester implements ITester {
+    private readonly _constructTime: number;
+
+    constructor() {
+        this._constructTime = Date.now();
+    }
+
+    get timeSinceStart(): number {
+        return Date.now() - this._constructTime;
+    }
+}
+
+container.bind<ITester>(ITester).to(Tester);
 
 Initializer.initialize(container);
 

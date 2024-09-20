@@ -8,6 +8,7 @@ import firebaseConfig from "./src/config/firebase.config.json";
 
 import verifyToken from '@functions/verify-token';
 import process from "@functions/images/process";
+import test from "@functions/test";
 
 const serverlessConfiguration: AWS = {
     org: 'splitsies',
@@ -39,7 +40,7 @@ const serverlessConfiguration: AWS = {
         },
     },
     // import the function via paths
-    functions: { verifyToken, process },
+    functions: { verifyToken, process, test },
     package: {
         individually: true,
         exclude: ['./src/tesseract/**/*']

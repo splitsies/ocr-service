@@ -136,3 +136,35 @@ Resources:
         - .github
         - .serverless
         - ./src/tesseract
+
+  TestTimeFunction:
+    Type: AWS::Serverless::Function
+    Properties: 
+      CodeUri: .
+      Handler: handler.main
+      Runtime: nodejs18.x
+      Architectures:
+      - x86_64
+      Events:
+        ProcessApi:
+          Type: Api
+          Properties:
+            Path: /test
+            Method: get
+            RestApiId: !Ref OcrServiceApi
+    Metadata: # Manage esbuild properties
+      BuildMethod: esbuild
+      SourcesContent: true
+      BuildProperties:
+        Minify: true
+        Target: es2020
+        Sourcemap: true
+        EntryPoints:
+        - src/functions/test/handler.ts
+        External:
+        - node_modules
+        - aws-sdk
+        - .esbuild
+        - .github
+        - .serverless
+        - ./src/tesseract
