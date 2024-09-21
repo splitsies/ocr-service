@@ -10,6 +10,7 @@
     "lint": "tslint -p tsconfig.json",
     "clear-shared-models": "npm cache clean --force && rm -rf ./node_modules/@splitsies/shared-models && rm -rf ./package-lock.json",
     "clear-algorithms": "npm cache clean --force && rm -rf ./node_modules/@splitsies/algorithms && rm -rf ./package-lock.json",
+    "clear-utils": "npm cache clean --force && rm -rf ./node_modules/@splitsies/utils && rm -rf ./package-lock.json && npm i",
     "build-sam": "sam build",
     "clean-sam": "rm -rf ./.aws-sam",
     "serve-sam": "sam build && rm -rf ./.aws-sam/build/ProcessImageFunction/tesseract && cp -R ./src/tesseract ./.aws-sam/build/ProcessImageFunction && sam local start-api --host 0.0.0.0 --port 12948 --env-vars ./local-startup/env.json"
@@ -25,7 +26,7 @@
     "@middy/http-json-body-parser": "^3.4.0",
     "@splitsies/formatting": "^1.0.0",
     "@splitsies/shared-models": "^0.0.31",
-    "@splitsies/utils": "^0.0.31",
+    "@splitsies/utils": "./splitsies-utils-0.0.33.tgz",
     "firebase-admin": "^11.11.0",
     "image-size": "^1.0.2",
     "inversify": "^6.0.1",
