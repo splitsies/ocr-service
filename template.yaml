@@ -48,7 +48,7 @@ Parameters:
 Globals:
   Function:
     Timeout: 60    
-    MemorySize: 2048
+    MemorySize: 3008
 
     # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
     # LoggingConfig:
@@ -126,7 +126,6 @@ Resources:
       BuildProperties:
         Minify: true
         Target: es2020
-        Sourcemap: true
         EntryPoints:
         - src/functions/images/process/handler.ts
         External:
@@ -136,3 +135,7 @@ Resources:
         - .github
         - .serverless
         - ./src/tesseract
+        - ./src/algorihtm-testing
+        - ./src/README.model
+        - ./src/serverless*
+        - ./src/.gitignore
