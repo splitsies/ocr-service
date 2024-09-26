@@ -21,25 +21,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
 
-    - name: Deploy to us-east-1 (Serverless Deploy)
-      uses: serverless/github-action@v3.1
-      with:
-        args: deploy --config serverless-tesseract.ts --stage dev-pr \
-            --param="FIREBASE_ADMIN_CREDS=${{ secrets.FIREBASE_ADMIN_CREDS_JSON_DEV_PR }}" \
-            --param="QUEUE_STAGE_NAME=devpr" \
-            --param="TEXTRACT_REGION=us-east-1" \
-            --param="OCR_ENGINE=textract"
-      env:
-        SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.SPLITSIES_DEPLOY_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.SPLITSIES_DEPLOY_SECRET_KEY }}
-
     - uses: actions/setup-python@v3
     - uses: aws-actions/setup-sam@v2
     - uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.SPLITSIES_DEPLOY_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.SPLITSIES_DEPLOY_SECRET_KEY }}
+        aws-access-key-id: ${{ secrets.SPLITSIES_DEPLOY_ACCESS_KEY_ID_DEV }}
+        aws-secret-access-key: ${{ secrets.SPLITSIES_DEPLOY_SECRET_KEY_DEV }}
         aws-region: us-west-1
     - run: sam build   
     
@@ -63,11 +50,20 @@ jobs:
         echo -n "\"FirebaseMeasurementId=${{ secrets.FIREBASE_MEASUREMENT_ID_DEV_PR }}\" " >> parameters.cfg
         echo -n "\"FirebaseAdminCreds=${{ secrets.FIREBASE_ADMIN_CREDS_DEV_PR }}\" " >> parameters.cfg
       # Note the trailing space on each parameter.
+
+    - name: Deploy to us-east-1 (SAM Deploy)
+      run: |
+        PARAMETERS=$(cat parameters.cfg)
+        sam deploy --stack-name ocr-service \
+        --region us-east-1 \
+        --no-confirm-changeset \
+        --no-fail-on-empty-changeset \
+        --parameter-overrides $PARAMETERS "TextractRegion=us-east-1"
         
     - name: Deploy to us-west-1 (SAM Deploy)
       run: |
         PARAMETERS=$(cat parameters.cfg)
-        sam deploy --stack-name ocr-service-dev-pr \
+        sam deploy --stack-name ocr-service \
         --region us-west-1 \
         --no-confirm-changeset \
         --no-fail-on-empty-changeset \
