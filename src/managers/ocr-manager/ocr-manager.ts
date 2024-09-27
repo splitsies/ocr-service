@@ -3,7 +3,6 @@ import { IOcrManager } from "./ocr-manager-interface";
 import { ITextBlock } from "@splitsies/shared-models";
 import { IImageTextProcessorProvider } from "../../providers/image-text-processor-provider/image-text-processor-provider-interface";
 
-
 @injectable()
 export class OcrManager implements IOcrManager {
     constructor(

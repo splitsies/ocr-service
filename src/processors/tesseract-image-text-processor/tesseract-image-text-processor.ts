@@ -24,7 +24,6 @@ export class TesseractImageTextProcessor implements ITesseractImageTextProcessor
             gzip: this._tesseractConfiguration.isGzipped,
         };
 
-
         this._logger.log(config);
 
         const worker = await createWorker({
@@ -43,7 +42,6 @@ export class TesseractImageTextProcessor implements ITesseractImageTextProcessor
             this._logger.log("Finished tesseract worker");
             return this._tessractBlockMapper.map(result, base64Image);
         } catch (e) {
-
             this._logger.log("Exception occurred in  tesseract worker");
             this._logger.error(e.code);
             return [];
