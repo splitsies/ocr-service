@@ -3,7 +3,7 @@ import { container } from "../../../di/inversify.config";
 import { IImageService } from "../../../services/image-service/image-service-interface";
 import { DataResponse, HttpStatusCode, IExpenseDto } from "@splitsies/shared-models";
 import { ILogger, SplitsiesFunctionHandlerFactory, ExpectedError } from "@splitsies/utils";
-import { middyfy } from "../../../libs/lambda"
+import { middyfy } from "../../../libs/lambda";
 import { ImageProcessingError } from "../../../models/errors/image-processing-error";
 const logger = container.get<ILogger>(ILogger);
 const imageService = container.get<IImageService>(IImageService);

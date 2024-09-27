@@ -5,15 +5,14 @@
   "main": "serverless.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "./utils/local-startup/startup.sh",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "clear-shared-models": "npm cache clean --force && rm -rf ./node_modules/@splitsies/shared-models && rm -rf ./package-lock.json",
     "clear-algorithms": "npm cache clean --force && rm -rf ./node_modules/@splitsies/algorithms && rm -rf ./package-lock.json",
     "clear-utils": "npm cache clean --force && rm -rf ./node_modules/@splitsies/utils && rm -rf ./package-lock.json && npm i",
-    "build-sam": "sam build",
-    "clean-sam": "rm -rf ./.aws-sam",
-    "serve-sam": "sam build && rm -rf ./.aws-sam/build/ProcessImageFunction/tesseract && cp -R ./src/tesseract ./.aws-sam/build/ProcessImageFunction && sam local start-api --host 0.0.0.0 --port 12948 --env-vars ./local-startup/env.json"
+    "build": "sam build",
+    "clean": "rm -rf ./.aws-sam",
+    "serve": "sam build && rm -rf ./.aws-sam/build/ProcessImageFunction/tesseract && cp -R ./src/tesseract ./.aws-sam/build/ProcessImageFunction && sam local start-api --host 0.0.0.0 --port 12948 --env-vars ./local-startup/env.json"
   
   },
   "engines": {

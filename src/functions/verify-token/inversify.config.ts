@@ -1,4 +1,4 @@
-import "reflect-metadata"
+import "reflect-metadata";
 import { Container } from "inversify";
 import { FirebaseProvider, IFirebaseProvider, ILogger, Logger } from "@splitsies/utils";
 
