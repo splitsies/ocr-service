@@ -66,9 +66,7 @@ Globals:
         TesseractLangPath: !Ref TesseractLangPath          
         TesseractCorePath: !Ref TesseractCorePath          
         TesseractIsGzipped: !Ref TesseractIsGzipped          
-        TesseractOcrEngineMode: !Ref TesseractOcrEngineMode          
-        TextractAccessKey: !Ref TextractAccessKey          
-        TextractSecretAccessKey: !Ref TextractSecretAccessKey          
+        TesseractOcrEngineMode: !Ref TesseractOcrEngineMode    
         TextractRegion: !Ref TextractRegion          
 
 Resources:
