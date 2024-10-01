@@ -29,8 +29,6 @@ jobs:
         params="TesseractCorePath=null ${params}"
         params="TesseractIsGzipped=null ${params}"
         params="TesseractOcrEngineMode=null ${params}"
-        params="TextractAccessKey=${{ secrets.TEXTRACT_ACCESS_KEY_ID }} ${params}"
-        params="TextractSecretAccessKey=${{ secrets.TEXTRACT_SECRET_ACCESS_KEY }} ${params}"
         params="FirebaseApiKey=${{ secrets.FIREBASE_API_KEY_DEV_PR }} ${params}"
         params="FirebaseAuthDomain=${{ secrets.FIREBASE_AUTH_DOMAIN_DEV_PR }} ${params}"
         params="FirebaseProjectId=${{ secrets.FIREBASE_PROJECT_ID_DEV_PR }} ${params}"

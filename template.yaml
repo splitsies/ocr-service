@@ -36,10 +36,6 @@ Parameters:
     Type: String
   TesseractOcrEngineMode:
     Type: String
-  TextractAccessKey:
-    Type: String
-  TextractSecretAccessKey:
-    Type: String
   TextractRegion:
     Type: String
 
@@ -70,9 +66,7 @@ Globals:
         TesseractLangPath: !Ref TesseractLangPath          
         TesseractCorePath: !Ref TesseractCorePath          
         TesseractIsGzipped: !Ref TesseractIsGzipped          
-        TesseractOcrEngineMode: !Ref TesseractOcrEngineMode          
-        TextractAccessKey: !Ref TextractAccessKey          
-        TextractSecretAccessKey: !Ref TextractSecretAccessKey          
+        TesseractOcrEngineMode: !Ref TesseractOcrEngineMode    
         TextractRegion: !Ref TextractRegion          
 
 Resources:
@@ -95,6 +89,34 @@ Resources:
           - aws-sdk
           - esbuild
 
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: LambdaSNSInvokePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # Permissions to create and manage logs
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+              - Effect: Allow
+                Action:
+                  - textract:DetectDocumentText
+                Resource: '*'
+
   OcrServiceApi:
     Type: AWS::Serverless::Api
     Properties:
@@ -113,6 +135,7 @@ Resources:
       Runtime: nodejs18.x
       Architectures:
       - x86_64
+      Role: !GetAtt LambdaExecutionRole.Arn
       Events:
         ProcessApi:
           Type: Api

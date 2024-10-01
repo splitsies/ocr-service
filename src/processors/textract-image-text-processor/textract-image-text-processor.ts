@@ -19,10 +19,6 @@ export class TextractImageTextProcessor implements ITextractImageTextProcessor {
         @inject(ITextractBlockMapper) private readonly _textractBlockMapper: ITextractBlockMapper,
     ) {
         this._client = new TextractClient({
-            credentials: {
-                accessKeyId: textractConfiguration.accessId,
-                secretAccessKey: textractConfiguration.secretAccessKey,
-            },
             region: textractConfiguration.region,
         });
     }
