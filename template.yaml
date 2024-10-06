@@ -131,6 +131,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties: 
       CodeUri: .
+      FunctionName: ProcessImage
       Handler: handler.main
       Runtime: nodejs18.x
       Architectures:
