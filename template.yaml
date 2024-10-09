@@ -73,6 +73,7 @@ Resources:
   VerifyTokenFunction:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: !Sub ${AWS::StackName}-VerifyToken
       CodeUri: ./src/functions/verify-token
       Handler: handler.main
       Runtime: nodejs18.x
@@ -131,6 +132,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties: 
       CodeUri: .
+      FunctionName: !Sub ${AWS::StackName}-ProcessImage
       Handler: handler.main
       Runtime: nodejs18.x
       Architectures:
