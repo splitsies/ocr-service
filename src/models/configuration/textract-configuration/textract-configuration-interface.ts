@@ -1,6 +1,4 @@
 export interface ITextractConfiguration {
-    readonly accessId: string;
-    readonly secretAccessKey: string;
     readonly region: string;
 }
 
