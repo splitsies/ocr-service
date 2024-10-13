@@ -1,15 +1,19 @@
 {
   "name": "ocr-service",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "./utils/local-startup/startup.sh",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "clear-shared-models": "npm cache clean --force && rm -rf ./node_modules/@splitsies/shared-models && rm -rf ./package-lock.json",
-    "clear-algorithms": "npm cache clean --force && rm -rf ./node_modules/@splitsies/algorithms && rm -rf ./package-lock.json"
+    "clear-algorithms": "npm cache clean --force && rm -rf ./node_modules/@splitsies/algorithms && rm -rf ./package-lock.json",
+    "clear-utils": "npm cache clean --force && rm -rf ./node_modules/@splitsies/utils && rm -rf ./package-lock.json && npm i",
+    "build": "sam build",
+    "clean": "rm -rf ./.aws-sam",
+    "serve": "sam build && rm -rf ./.aws-sam/build/ProcessImageFunction/tesseract && cp -R ./src/tesseract ./.aws-sam/build/ProcessImageFunction && sam local start-api --host 0.0.0.0 --port 12948 --env-vars ./local-startup/env.json"
+  
   },
   "engines": {
     "node": ">=14.15.0"
@@ -21,7 +25,7 @@
     "@middy/http-json-body-parser": "^3.4.0",
     "@splitsies/formatting": "^1.0.0",
     "@splitsies/shared-models": "^0.0.31",
-    "@splitsies/utils": "^0.0.31",
+    "@splitsies/utils": "^0.0.33",
     "firebase-admin": "^11.11.0",
     "image-size": "^1.0.2",
     "inversify": "^6.0.1",
@@ -29,7 +33,9 @@
     "serverless": "^3.27.0",
     "tesseract.js": "^4.0.2",
     "tesseract.js-core": "^4.0.2",
-    "@splitsies/algorithms": "^1.0.12"
+    "@splitsies/algorithms": "^1.0.12",
+    "esbuild": "^0.14.14",
+    "esbuild-plugin-copy": "^2.1.1"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",

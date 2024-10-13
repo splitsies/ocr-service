@@ -17,25 +17,40 @@ export class TesseractConfiguration implements ITesseractConfiguration {
     readonly ocrEngineMode: OEM;
 
     constructor() {
-        assert(!!process.env.TESSERACT_WORKER_PATH, "TESSERACT_WORKER_PATH was undefined");
-        assert(!!process.env.TESSERACT_LANG_PATH, "TESSERACT_LANG_PATH was undefined");
-        assert(!!process.env.TESSERACT_CORE_PATH, "TESSERACT_CORE_PATH was undefined");
-        assert(!!process.env.TESSERACT_IS_GZIPPED, "TESSERACT_IS_GZIPPED was undefined");
-        assert(!!process.env.TESSERACT_OCR_ENGINE_MODE, "TESSERACT_OCR_ENGINE_MODE was undefined");
+        assert(
+            !!(process.env.TESSERACT_WORKER_PATH || process.env.TesseractWorkerPath),
+            "TESSERACT_WORKER_PATH was undefined",
+        );
+        assert(
+            !!(process.env.TESSERACT_LANG_PATH || process.env.TesseractLangPath),
+            "TESSERACT_LANG_PATH was undefined",
+        );
+        assert(
+            !!(process.env.TESSERACT_CORE_PATH || process.env.TesseractCorePath),
+            "TESSERACT_CORE_PATH was undefined",
+        );
+        assert(
+            !!(process.env.TESSERACT_IS_GZIPPED || process.env.TesseractIsGzipped),
+            "TESSERACT_IS_GZIPPED was undefined",
+        );
+        assert(
+            !!(process.env.TESSERACT_OCR_ENGINE_MODE || process.env.TesseractOcrEngineMode),
+            "TESSERACT_OCR_ENGINE_MODE was undefined",
+        );
 
-        this.isGzipped = process.env.TESSERACT_IS_GZIPPED.toLowerCase() === "true";
-        this.ocrEngineMode = OEM[process.env.TESSERACT_OCR_ENGINE_MODE];
+        this.isGzipped = (process.env.TESSERACT_IS_GZIPPED || process.env.TesseractIsGzipped).toLowerCase() === "true";
+        this.ocrEngineMode = OEM[process.env.TESSERACT_OCR_ENGINE_MODE || process.env.TESSERACT_OCR_ENGINE_MODE];
 
-        this.workerPath = path.isAbsolute(process.env.TESSERACT_WORKER_PATH)
-            ? process.env.TESSERACT_WORKER_PATH
-            : path.join(__dirname, process.env.TESSERACT_WORKER_PATH);
+        this.workerPath = path.isAbsolute(process.env.TESSERACT_WORKER_PATH || process.env.TesseractWorkerPath)
+            ? process.env.TESSERACT_WORKER_PATH || process.env.TesseractWorkerPath
+            : path.join(__dirname, process.env.TESSERACT_WORKER_PATH || process.env.TesseractWorkerPath);
 
-        this.langPath = path.isAbsolute(process.env.TESSERACT_LANG_PATH)
-            ? process.env.TESSERACT_LANG_PATH
-            : path.join(__dirname, process.env.TESSERACT_LANG_PATH);
+        this.langPath = path.isAbsolute(process.env.TESSERACT_LANG_PATH || process.env.TesseractLangPath)
+            ? process.env.TESSERACT_LANG_PATH || process.env.TesseractLangPath
+            : path.join(__dirname, process.env.TESSERACT_LANG_PATH || process.env.TesseractLangPath);
 
-        this.corePath = path.isAbsolute(process.env.TESSERACT_CORE_PATH)
-            ? process.env.TESSERACT_CORE_PATH
-            : path.join(__dirname, process.env.TESSERACT_CORE_PATH);
+        this.corePath = path.isAbsolute(process.env.TESSERACT_CORE_PATH || process.env.TesseractCorePath)
+            ? process.env.TESSERACT_CORE_PATH || process.env.TesseractCorePath
+            : path.join(__dirname, process.env.TESSERACT_CORE_PATH || process.env.TesseractCorePath);
     }
 }

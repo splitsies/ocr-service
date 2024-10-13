@@ -1,0 +1,166 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  ocr-service
+
+  SAM Template for ocr-service
+
+Parameters:
+  FirebaseApiKey:
+    Type: String
+  FirebaseAuthDomain:
+    Type: String
+  FirebaseProjectId:
+    Type: String
+  FirebaseStorageBucket:
+    Type: String
+  FirebaseMessagingSenderId:
+    Type: String
+  FirebaseAppId:
+    Type: String
+  FirebaseMeasurementId:
+    Type: String
+  FirebaseAdminCreds:
+    Type: String
+  Stage:
+    Type: String
+  OcrEngine:
+    Type: String
+  TesseractWorkerPath:
+    Type: String
+  TesseractLangPath:
+    Type: String
+  TesseractCorePath:
+    Type: String
+  TesseractIsGzipped:
+    Type: String
+  TesseractOcrEngineMode:
+    Type: String
+  TextractRegion:
+    Type: String
+
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 60    
+    MemorySize: 3008
+
+    # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
+    # LoggingConfig:
+    #   LogFormat: JSON
+
+    Environment:
+      Variables:
+        FirebaseApiKey: !Ref FirebaseApiKey
+        FirebaseAuthDomain: !Ref FirebaseAuthDomain
+        FirebaseProjectId: !Ref FirebaseProjectId
+        FirebaseStorageBucket: !Ref FirebaseStorageBucket
+        FirebaseMessagingSenderId: !Ref FirebaseMessagingSenderId
+        FirebaseAppId: !Ref FirebaseAppId
+        FirebaseMeasurementId: !Ref FirebaseMeasurementId
+        FirebaseAdminCreds: !Ref FirebaseAdminCreds
+        Stage: !Ref Stage
+        OcrEngine: !Ref OcrEngine          
+        TesseractWorkerPath: !Ref TesseractWorkerPath          
+        TesseractLangPath: !Ref TesseractLangPath          
+        TesseractCorePath: !Ref TesseractCorePath          
+        TesseractIsGzipped: !Ref TesseractIsGzipped          
+        TesseractOcrEngineMode: !Ref TesseractOcrEngineMode    
+        TextractRegion: !Ref TextractRegion          
+
+Resources:
+  VerifyTokenFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-VerifyToken
+      CodeUri: ./src/functions/verify-token
+      Handler: handler.main
+      Runtime: nodejs18.x
+    Metadata: # Manage esbuild properties
+        BuildMethod: esbuild
+        BuildProperties:
+          Minify: true
+          Target: es2020
+          Sourcemap: true
+          EntryPoints:
+          - handler.ts
+          External:
+          - node_modules
+          - aws-sdk
+          - esbuild
+
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: LambdaSNSInvokePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # Permissions to create and manage logs
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+              - Effect: Allow
+                Action:
+                  - textract:DetectDocumentText
+                Resource: '*'
+
+  OcrServiceApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Sub ${Stage}
+      Auth:
+        Authorizers:
+          TokenAuthorizer:
+            FunctionArn: !GetAtt VerifyTokenFunction.Arn
+        DefaultAuthorizer: TokenAuthorizer
+
+  ProcessImageFunction:
+    Type: AWS::Serverless::Function
+    Properties: 
+      CodeUri: .
+      FunctionName: !Sub ${AWS::StackName}-ProcessImage
+      Handler: handler.main
+      Runtime: nodejs18.x
+      Architectures:
+      - x86_64
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        ProcessApi:
+          Type: Api
+          Properties:
+            Path: /process
+            Method: post
+            RestApiId: !Ref OcrServiceApi
+    Metadata: # Manage esbuild properties
+      BuildMethod: esbuild
+      SourcesContent: true
+      BuildProperties:
+        Minify: true
+        Target: es2020
+        EntryPoints:
+        - src/functions/images/process/handler.ts
+        External:
+        - node_modules
+        - aws-sdk
+        - .esbuild
+        - .github
+        - .serverless
+        - ./src/tesseract
+        - ./src/algorihtm-testing
+        - ./src/README.model
+        - ./src/serverless*
+        - ./src/.gitignore

@@ -1,11 +1,11 @@
 import { inject, injectable } from "inversify";
 import { createWorker } from "tesseract.js";
-import { ITesseractConfiguration } from "@models/configuration/tesseract-configuration/tesseract-configuration-interface";
-import { ITesseractBlockMapper } from "src/mappers/tesseract-block-mapper/tesseract-block-mapper-interace";
+import { ITesseractBlockMapper } from "../../mappers/tesseract-block-mapper/tesseract-block-mapper-interace";
 import { ITextBlock } from "@splitsies/shared-models";
-import { IImageFormatMapper } from "src/mappers/image/image-format-mapper-interface";
+import { IImageFormatMapper } from "../../mappers/image/image-format-mapper-interface";
 import { ILogger } from "@splitsies/utils";
 import { ITesseractImageTextProcessor } from "./tesseract-image-text-processor-interface";
+import { ITesseractConfiguration } from "../../models/configuration/tesseract-configuration/tesseract-configuration-interface";
 
 @injectable()
 export class TesseractImageTextProcessor implements ITesseractImageTextProcessor {
@@ -24,6 +24,8 @@ export class TesseractImageTextProcessor implements ITesseractImageTextProcessor
             gzip: this._tesseractConfiguration.isGzipped,
         };
 
+        this._logger.log(config);
+
         const worker = await createWorker({
             ...config,
             errorHandler: (e) => this._logger.error(e),
@@ -35,9 +37,12 @@ export class TesseractImageTextProcessor implements ITesseractImageTextProcessor
         const imageBytes = this._imageFormatMapper.map(base64Image);
 
         try {
+            this._logger.log("Starting tesseract worker");
             const result = await worker.recognize(imageBytes);
+            this._logger.log("Finished tesseract worker");
             return this._tessractBlockMapper.map(result, base64Image);
         } catch (e) {
+            this._logger.log("Exception occurred in  tesseract worker");
             this._logger.error(e.code);
             return [];
         }
